@@ -6,6 +6,8 @@ sg.theme('Dark Grey 13')
 ran_num = random.randint(1, 10)
 lives = 3
 
+# print('Number: ' + str(ran_num))
+
 setup_layout = [
     [sg.Text('Pick a number between 1 and 10. You have three oppuritunities to get the answer.')],
     [sg.Text('What is your guess?'), sg.InputText(key='-GUESS-')],
@@ -14,6 +16,8 @@ setup_layout = [
 ]
 
 window1 = sg.Window('Random Number Game', setup_layout, resizable=True)
+loss_window_active = False
+win_window_active = False
 
 while True:
     event, values = window1.read()
@@ -30,7 +34,7 @@ while True:
             guess = int(guess)
             if guess == ran_num:
                 result_message = ("Congrats you don't suck.")
-                result_window_active = True
+                win_window_active = True
                 break
             else:
                 lives -= 1
@@ -38,22 +42,37 @@ while True:
 
                 if lives <= 0:
                     result_message = "You have lost the game. You are the worst."
-                    result_window_active = True
+                    loss_window_active = True
                     break
 
-if result_window_active:
-    result_layout = [
+if loss_window_active:
+    loss_layout = [
         [sg.Text(result_message)],
         [sg.Button('Confirm you Suck')]
     ]
+    
+    loss_window = sg.Window('Game Result', loss_layout)
 
-result_window = sg.Window('Game Result', result_layout)
+    while True:
+        event, _ = loss_window.read()
+        if event in (sg.WIN_CLOSED, 'Confirm you Suck'):
+            break
 
-while True:
-    event, _ = result_window.read()
-    if event in (sg.WIN_CLOSED, 'Confirm you Suck'):
-        break
+
+if win_window_active:
+    win_layout = [
+        [sg.Text(result_message)],
+        [sg.Button('Confirm')]
+    ]
+
+    win_window = sg.Window('Game Result', win_layout)
+
+    while True:
+        event, _ = win_window.read()
+        if event in (sg.WIN_CLOSED, 'Confirm'):
+            break
 
 
 window1.close()
-result_window.close()
+loss_window.close()
+win_window.close()
