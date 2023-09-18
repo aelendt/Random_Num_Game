@@ -6,7 +6,7 @@ sg.theme('Dark Grey 13')
 ran_num = random.randint(1, 10)
 lives = 3
 
-# print('Number: ' + str(ran_num))
+print('Number: ' + str(ran_num))
 
 setup_layout = [
     [sg.Text('Pick a number between 1 and 10. You have three oppuritunities to get the answer.')],
@@ -33,7 +33,7 @@ while True:
         else:
             guess = int(guess)
             if guess == ran_num:
-                result_message = ("Congrats you don't suck.")
+                win_message = ("Congrats you don't suck.")
                 win_window_active = True
                 break
             else:
@@ -41,13 +41,13 @@ while True:
                 window1['-OUTPUT-'].update(f'You suck at this. Lives: {lives}\n', append=True)
 
                 if lives <= 0:
-                    result_message = "You have lost the game. You are the worst."
+                    loss_message = "You have lost the game. You are the worst."
                     loss_window_active = True
                     break
 
 if loss_window_active:
     loss_layout = [
-        [sg.Text(result_message)],
+        [sg.Text(loss_message)],
         [sg.Button('Confirm you Suck')]
     ]
     
@@ -61,7 +61,7 @@ if loss_window_active:
 
 if win_window_active:
     win_layout = [
-        [sg.Text(result_message)],
+        [sg.Text(win_message)],
         [sg.Button('Confirm')]
     ]
 
