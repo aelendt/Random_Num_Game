@@ -76,3 +76,6 @@ if win_window_active:
 window1.close()
 loss_window.close()
 win_window.close()
+
+
+print('Hello')
