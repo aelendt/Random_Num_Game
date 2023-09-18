@@ -78,4 +78,4 @@ loss_window.close()
 win_window.close()
 
 
-print('Hello')
+print('Hello').lower()
